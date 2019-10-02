@@ -43,10 +43,42 @@ func (self *AppTemplate) AddCommand(name, usage string, aliases []string) *cli.C
 
 }
 
+func (self *AppTemplate) AddStringFlag(name, usage string) *cli.Flag {
+
+	return addFlag(self, true, name, usage)
+
+}
+
+func (self *AppTemplate) AddBoolFlag(name, usage string) *cli.Flag {
+	return addFlag(self, false, name, usage)
+}
+
+func addFlag(temp *AppTemplate, isString bool, name, usage string) *cli.Flag {
+
+	var f cli.Flag
+
+	if isString {
+		f = cli.StringFlag{Name: name, Usage: usage}
+	} else {
+		f = cli.BoolFlag{Name: name, Usage: usage}
+	}
+
+	temp.app.Flags = append(temp.app.Flags, f)
+
+	l := len(temp.app.Flags)
+
+	return &temp.app.Flags[l-1]
+
+}
+
+func (self AppTemplate) GetCommands() []cli.Command {
+
+	return self.app.Commands
+}
+
 func (self AppTemplate) SetAction(action func(c *cli.Context) error) {
 
 	self.app.Action = action
-
 }
 
 func (self AppTemplate) Start() error {
