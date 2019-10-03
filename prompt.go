@@ -2,6 +2,7 @@ package utility
 
 import "github.com/manifoldco/promptui"
 
+// SelectPrompt is a helper for manifoldco's promptui.Select
 func SelectPrompt(items []string, label string) int {
 
 	prompt := promptui.Select{Label: label, Items: items}
@@ -15,6 +16,7 @@ func SelectPrompt(items []string, label string) int {
 	return i
 }
 
+// ConfirmPrompt is a helper for manifoldco's confirmation prompt
 func ConfirmPrompt(label string) bool {
 
 	prompt := promptui.Prompt{Label: label, IsConfirm: true}
@@ -29,6 +31,7 @@ func ConfirmPrompt(label string) bool {
 
 }
 
+// PasswordPrompt is a helper for manifoldco's masked prompt
 func PasswordPrompt(label string, validate func(input string) error) (string, error) {
 
 	prompt := promptui.Prompt{

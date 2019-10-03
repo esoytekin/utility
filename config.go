@@ -10,6 +10,8 @@ import (
 
 var open = os.Open
 
+// ReadConfiguration opens file in path $HOME/.<appname>/config.json
+// and loads properties into config var
 func ReadConfiguration(appname string, config interface{}) error {
 	usr, err := user.Current()
 
